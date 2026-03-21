@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "name": "Product name 1",
+    "description": "Description of product",
+    "price": 1.99,
+    "quantity": 10,
+    "barcode": "0040987928",
+    "category": "category",
+    "product_details": {
+      "brand": "product brands",
+      "product_name": "Product name again"
+    }
+  }
+]
