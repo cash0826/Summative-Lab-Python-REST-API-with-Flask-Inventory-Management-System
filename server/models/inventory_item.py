@@ -6,8 +6,7 @@
 # "barcode": "0040987928",
 # "category": "category",
 
-from dataclasses import dataclass, asdict
-import Details
+from models.details import Details
 
 class Inventory_Item():
   def __init__(self, id=None, name='', description='', price=0.0, quantity=0, barcode='', category='', product_details={}):
@@ -22,7 +21,7 @@ class Inventory_Item():
   
   @classmethod
   def from_dict(cls, data):
-    return cls(
+    item =  cls(
       id = data.get('id', 0),
       name = data.get('name', ''),
       description = data.get('description', ''),
@@ -30,8 +29,17 @@ class Inventory_Item():
       quantity = data.get('quantity', 0),
       barcode = data.get('barcode', ''),
       category = data.get('category', ''),
-      product_details = [Details.from_dict(d) for d in data.get('product_details', {})]
     )
+    item.product_details = data.get("product_details", {})
+    return item
     
   def to_dict(self):
-    return asdict()
+    return {
+      "id": self.id,
+      "name": self.name,
+      "description": self.description,
+      "quantity": self.quantity,
+      "barcode": self.barcode,
+      "category": self.category,
+      "product_details": self.product_details
+    }

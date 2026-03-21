@@ -11,5 +11,31 @@
       "brand": "product brands",
       "product_name": "Product name again"
     }
+  },
+  {
+    "id": 2,
+    "name": "Product name 2",
+    "description": "Description of product",
+    "price": 2.99,
+    "quantity": 12,
+    "barcode": "0040987922",
+    "category": "category",
+    "product_details": {
+      "brand": "product brands",
+      "product_name": "Product name 2"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Product name 3",
+    "description": "Description of product",
+    "price": 3.99,
+    "quantity": 33,
+    "barcode": "0040987923",
+    "category": "category",
+    "product_details": {
+      "brand": "product brands",
+      "product_name": "Product name 3"
+    }
   }
 ]
