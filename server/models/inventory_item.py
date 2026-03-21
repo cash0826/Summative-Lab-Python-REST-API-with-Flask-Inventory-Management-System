@@ -38,6 +38,7 @@ class Inventory_Item():
       "id": self.id,
       "name": self.name,
       "description": self.description,
+      "price" : self.price,
       "quantity": self.quantity,
       "barcode": self.barcode,
       "category": self.category,

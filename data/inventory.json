@@ -37,5 +37,18 @@
       "brand": "Crystal Farms Dairy Co",
       "product_name": "Crystal Farms 4 Cheese Mexican Style Blend"
     }
+  },
+  {
+    "id": 4,
+    "name": "Bicentury Chocolate Rice Cakes",
+    "description": "RICE CAKE WITH MILK CHOCOLATE",
+    "price": 1.99,
+    "quantity": 4,
+    "barcode": "842307209946",
+    "category": "snacks",
+    "product_details": {
+      "brand": "Bicentury",
+      "product_name": "Bicentury Chocolate Rice Cakes"
+    }
   }
 ]

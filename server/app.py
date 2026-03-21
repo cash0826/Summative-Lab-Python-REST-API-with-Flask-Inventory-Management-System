@@ -1,12 +1,31 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, current_app, abort, g, make_response
 # from flask_cors import CORS
 from providers.JSON_inventory_provider import JSON_Inventory_Provider
 from models.inventory_item import Inventory_Item
+import os
 
-app = Flask(__name__)
-# CORS(app)
+app = Flask("Inventory Management System") 
 
-# separate data from presentation layer. Create a data access layer for reading and writing json -> providers
+@app.before_request
+def app_path():
+  g.path = os.path.abspath(os.getcwd()) # can be used for additional checks like authentication, prior to loading page
+  
+@app.route("/")
+def home():
+  host = request.headers.get("Host")
+  appname = current_app.name
+  response_body = f'''
+  <h1> {appname} </h1>
+  <h2> {host} </h2>
+  <h3> {g.path} </h3>
+  <p> API endpoint: localhost/inventory </p>
+  '''
+  status_code = 200
+  headers = {}
+  return make_response(response_body, status_code, headers)
+  
+# Notes: Separate data from presentation layer. 
+# Create a data access layer for reading and writing json -> providers
 
 _provider = JSON_Inventory_Provider("data/inventory.json")
 
@@ -15,7 +34,7 @@ _provider = JSON_Inventory_Provider("data/inventory.json")
 ## GET /inventory -> Fetch all items
 @app.route("/inventory", methods=["GET"])
 def get_all_inventory():
-  _provider.load()
+  _provider.load() 
   inventory = _provider.all_inventory()
   return jsonify([item.to_dict() for item in inventory]), 200
 
@@ -38,13 +57,29 @@ def create_new_item():
     _provider.load()
     
     item = Inventory_Item.from_dict(request.json)
-    new_item = _provider.add(item)
+    new_item = _provider.add_item(item)
     if new_item:
       _provider.save()
-      return jsonify(new_item), 201
+      return jsonify(new_item.to_dict()), 201
     return "", 500
   except Exception as e:
     abort(500, description=e)
     
+## PUT /inventory/<item> -> Update an item
+@app.route("/inventory/<int:id>", methods=["PUT"])
+def update_item(id):
+  if not request.json:
+    abort(400, description="Missing JSON data")
+  try:
+    _provider.load()
+    item = Inventory_Item.from_dict(request.json)
+    updated_item = _provider.update_item(id, item)
+    if updated_item:
+      _provider.save()
+      return jsonify(updated_item.to_dict()), 200 # Returns updated item
+    abort(400, description=f"Item with id {id} in inventory not found")
+  except Exception as e:
+    abort(400, description=str(e))
+
 if __name__ == "__main__":
   app.run(port=5555, debug=True)

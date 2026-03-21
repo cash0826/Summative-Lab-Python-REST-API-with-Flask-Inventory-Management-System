@@ -36,3 +36,10 @@ class JSON_Inventory_Provider():
       self._inventory.append(item)
       return item
     return None
+  
+  def update_item(self, id: int, item: Inventory_Item):
+    for i, existing_item in enumerate(self._inventory):
+      if existing_item.id == id:
+        self._inventory[i] = item
+        return item
+    return None
