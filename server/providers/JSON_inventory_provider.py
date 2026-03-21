@@ -38,10 +38,6 @@ class JSON_Inventory_Provider():
       
     self._inventory.append(item)
     return item
-    # if item:
-    #   self._inventory.append(item)
-    #   return item
-    # return None
   
   def update(self, id: int, item: Inventory_Item):
     for i, existing_item in enumerate(self._inventory):
