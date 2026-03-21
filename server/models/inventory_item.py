@@ -22,7 +22,7 @@ class Inventory_Item():
   @classmethod
   def from_dict(cls, data):
     item =  cls(
-      id = data.get('id', 0),
+      id = data.get('id', None),
       name = data.get('name', ''),
       description = data.get('description', ''),
       price = data.get('price', 0),

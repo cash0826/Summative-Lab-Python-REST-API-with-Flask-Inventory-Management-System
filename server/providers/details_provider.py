@@ -1,1 +1,0 @@
-# for consuming external API

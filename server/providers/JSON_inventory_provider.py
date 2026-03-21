@@ -32,10 +32,12 @@ class JSON_Inventory_Provider():
     return next((item for item in self._inventory if item.id == id), None)
   
   def add_item(self, item):
-    if item:
-      self._inventory.append(item)
-      return item
-    return None
+    if item.id is None:
+      max_id = max([i.id for i in self._inventory]) if self._inventory else 0
+      item.id = max_id + 1
+      
+    self._inventory.append(item)
+    return item
   
   def update(self, id: int, item: Inventory_Item):
     for i, existing_item in enumerate(self._inventory):
@@ -48,3 +50,6 @@ class JSON_Inventory_Provider():
     initial_len = len(self._inventory)
     self._inventory = [i for i in self._inventory if i.id != id]
     return len(self._inventory) < initial_len
+  
+  def lookup(self, barcode):
+    pass

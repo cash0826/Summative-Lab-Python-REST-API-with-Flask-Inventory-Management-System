@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, current_app, abort, g, make_response
 # from flask_cors import CORS
 from providers.JSON_inventory_provider import JSON_Inventory_Provider
 from models.inventory_item import Inventory_Item
+from services.open_food_facts_service import Open_Food_Facts_Service
 import os
 
 app = Flask("Inventory Management System") 
@@ -28,14 +29,18 @@ def home():
 # Create a data access layer for reading and writing json -> providers
 
 _provider = JSON_Inventory_Provider("data/inventory.json")
+detail_services = Open_Food_Facts_Service("https://world.openfoodfacts.net/api/v2/product/{barcode}.json")
 
 # Routes
 
 ## GET /inventory -> Fetch all items
 @app.route("/inventory", methods=["GET"])
 def get_all_inventory():
+  barcode = request.args.get("barcode")
   _provider.load() 
   inventory = _provider.all_inventory()
+  if barcode:
+    inventory = [item for item in inventory if item.barcode == barcode]
   return jsonify([item.to_dict() for item in inventory]), 200
 
 ## GET /inventory/<item> -> Fetch a single item by id
@@ -52,10 +57,8 @@ def get_inventory_item(id):
 def create_new_item():
   if not request.json:
     abort(400, description="Missing JSON data")
-    
   try:
     _provider.load()
-    
     item = Inventory_Item.from_dict(request.json)
     new_item = _provider.add_item(item)
     if new_item:
@@ -88,8 +91,8 @@ def delete_item(id):
   success = _provider.delete(id)
   if success:
     _provider.save()
-    return jsonify({"message": f"Deleted Item with id {id}"})
+    return jsonify({"message": f"Deleted Item with id {id}"}), 204
   abort(404, description="Inventory Item with id {id} not found")
-  
+
 if __name__ == "__main__":
   app.run(port=5555, debug=True)
