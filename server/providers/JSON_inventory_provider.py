@@ -22,8 +22,6 @@ class JSON_Inventory_Provider():
   
   def save(self):
     data = [item.to_dict() for item in self._inventory]
-    directory = os.path.dirname(self.filename)
-    os.makedirs(directory, exist_ok=True)
     with open(self.filename, "w", encoding="utf-8") as f:
       json.dump(data, f, indent=2)
   
@@ -32,3 +30,9 @@ class JSON_Inventory_Provider():
   
   def inventory_item_id(self, id):
     return next((item for item in self._inventory if item.id == id), None)
+  
+  def add_item(self, item):
+    if item:
+      self._inventory.append(item)
+      return item
+    return None
