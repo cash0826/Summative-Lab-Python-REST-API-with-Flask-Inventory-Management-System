@@ -30,4 +30,5 @@ class JSON_Inventory_Provider():
   def all_inventory(self):
     return self._inventory
   
-  
+  def inventory_item_id(self, id):
+    return next((item for item in self._inventory if item.id == id), None)
