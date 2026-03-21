@@ -18,7 +18,7 @@ def home():
   <h1> {appname} </h1>
   <h2> {host} </h2>
   <h3> {g.path} </h3>
-  <p> API endpoint: localhost/inventory </p>
+  <p> API endpoint: /inventory </p>
   '''
   status_code = 200
   headers = {}
@@ -73,13 +73,23 @@ def update_item(id):
   try:
     _provider.load()
     item = Inventory_Item.from_dict(request.json)
-    updated_item = _provider.update_item(id, item)
+    updated_item = _provider.update(id, item)
     if updated_item:
       _provider.save()
       return jsonify(updated_item.to_dict()), 200 # Returns updated item
     abort(400, description=f"Item with id {id} in inventory not found")
   except Exception as e:
     abort(400, description=str(e))
-
+    
+## DELETE /inventory/<item> -> Remove an item
+@app.route("/inventory/<int:id>", methods=["DELETE"])
+def delete_item(id):
+  _provider.load()
+  success = _provider.delete(id)
+  if success:
+    _provider.save()
+    return jsonify({"message": f"Deleted Item with id {id}"})
+  abort(404, description="Inventory Item with id {id} not found")
+  
 if __name__ == "__main__":
   app.run(port=5555, debug=True)

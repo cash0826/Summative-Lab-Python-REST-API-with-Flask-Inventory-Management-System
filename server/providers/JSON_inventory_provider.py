@@ -37,9 +37,14 @@ class JSON_Inventory_Provider():
       return item
     return None
   
-  def update_item(self, id: int, item: Inventory_Item):
+  def update(self, id: int, item: Inventory_Item):
     for i, existing_item in enumerate(self._inventory):
       if existing_item.id == id:
         self._inventory[i] = item
         return item
     return None
+  
+  def delete(self, id:int):
+    initial_len = len(self._inventory)
+    self._inventory = [i for i in self._inventory if i.id != id]
+    return len(self._inventory) < initial_len
