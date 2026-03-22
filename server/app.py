@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request, current_app, abort, g, make_response
 from flask_cors import CORS
 from providers.JSON_inventory_provider import JSON_Inventory_Provider
-from models.inventory_item import Inventory_Item
 from services.open_food_facts_service import Open_Food_Facts_Service
+from models.inventory_item import Inventory_Item
 import os
 
 app = Flask("Inventory Management System")
@@ -29,8 +29,8 @@ def home():
 # Notes: Separate data from presentation layer. 
 # Create a data access layer for reading and writing json -> providers
 
-_provider = JSON_Inventory_Provider("data/inventory.json")
-detail_services = Open_Food_Facts_Service("https://world.openfoodfacts.net/api/v2/product/{barcode}.json")
+base_url_external_api = Open_Food_Facts_Service("https://world.openfoodfacts.net/api/v2/product/{barcode}.json")
+_provider = JSON_Inventory_Provider("data/inventory.json", detail_services=base_url_external_api)
 
 # Routes
 

@@ -17,11 +17,13 @@ class Open_Food_Facts_Service(Product_Detail_Service):
       
       if data.get("status") == 1:
         product = data.get("product", {})
-        return {
+        product_details = {
           "product_name": product.get("product_name"),
           "brands": product.get("brands"),
           "categories": product.get("categories")
         }
+        return product_details
+      
     except Exception as e:
       print(f"Error fetching data from OpenFoodFacts: {e}")
       
