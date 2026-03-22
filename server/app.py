@@ -26,7 +26,7 @@ def home():
   headers = {}
   return make_response(response_body, status_code, headers)
   
-# Notes: Separate data from presentation layer. 
+# Good practice: Separate data from presentation layer. 
 # Create a data access layer for reading and writing json -> providers
 
 base_url_external_api = Open_Food_Facts_Service("https://world.openfoodfacts.net/api/v2/product/{barcode}.json")

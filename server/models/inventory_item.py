@@ -1,12 +1,3 @@
-# "id": 1,
-# "name": "Product name 1",
-# "description": "Description of product",
-# "price": 1.99,
-# "quantity": 10,
-# "barcode": "0040987928",
-# "category": "category",
-
-from models.details import Details
 
 class Inventory_Item():
   def __init__(self, id=None, name='', description='', price=0.0, quantity=0, barcode='', category='', product_details=None):

@@ -47,9 +47,6 @@ class JSON_Inventory_Provider():
     if not item.name and details.get("product_name"):
       item.name = details.get("product_name")
     
-    if not item.category and details.get("categories"):
-      item.category = details.get("categories")
-      
     self._inventory.append(item)
     return item
   
@@ -64,6 +61,3 @@ class JSON_Inventory_Provider():
     initial_len = len(self._inventory)
     self._inventory = [i for i in self._inventory if i.id != id]
     return len(self._inventory) < initial_len
-  
-  def lookup(self, barcode):
-    pass
