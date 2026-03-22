@@ -56,10 +56,10 @@ ol, ul, li {
 }
 
 input, textarea {
-  width: 100%;
+  width: 75%;
   padding: 0.5em;
   margin-top: 0.5em;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1em;
@@ -101,4 +101,11 @@ th, td {
   text-align: left;
   background-color: #1a53c5;
   color: white;
+}
+
+tfoot td {
+  background-color: #1a53c5;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 }

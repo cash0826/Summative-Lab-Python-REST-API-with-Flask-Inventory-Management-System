@@ -21,7 +21,7 @@ Basic Installation:
 
 # 2. API endpoints
 
-* GET /inventory -> Fetch all items*
+* GET /inventory -> Fetch all items
 * GET /inventory/<item> -> Fetch a single item by id
 * POST /inventory -> Add a new item
 * PUT /inventory/<item> -> Update an item
