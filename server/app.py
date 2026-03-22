@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, request, current_app, abort, g, make_response
-# from flask_cors import CORS
+from flask_cors import CORS
 from providers.JSON_inventory_provider import JSON_Inventory_Provider
 from models.inventory_item import Inventory_Item
 from services.open_food_facts_service import Open_Food_Facts_Service
 import os
 
-app = Flask("Inventory Management System") 
+app = Flask("Inventory Management System")
+CORS(app)
 
 @app.before_request
 def app_path():
