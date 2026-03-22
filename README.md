@@ -16,6 +16,7 @@ Basic Installation:
 ```pipenv run python server/app.py```
 
 * Start Frontend UI:
+```cd client```
 ```npm run dev```
 
 # 2. API endpoints

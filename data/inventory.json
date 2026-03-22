@@ -53,15 +53,15 @@
   },
   {
     "id": 5,
-    "name": "Yogurt Yes Natural No Sugar",
+    "name": "Yes Yogurt Natural No Sugar",
     "description": "a creamy natural yogurt with no added sugar",
     "price": 4.99,
     "quantity": 1,
     "barcode": "0787003000663",
     "category": "dairy",
     "product_details": {
-      "brand": "Yogurt Yes",
-      "product_name": "Yogurt Yes Natural No Sugar"
+      "brand": "Yes",
+      "product_name": "Yes Yogurt Natural No Sugar"
     }
   }
 ]

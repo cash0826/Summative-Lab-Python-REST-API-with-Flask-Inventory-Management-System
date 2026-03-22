@@ -41,7 +41,7 @@ h1 {
 
 h2, h3, h4, h5, h6 {
   font-size: 1.8em;
-  line-height: 1;
+  line-height: 0.5;
 }
 
 p {
@@ -86,13 +86,19 @@ button:hover {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  display: inline-block;
-  box-sizing: border-box;
-  width: 150px;
+  width: 500px;
   text-align: center;
-  padding: 1rem;
+  padding: 0.6em 0.6em;
   background-color: #1a53c5;
   color: white;
   font-weight: bold;
   transition: border-color 0.25s;
+}
+
+th, td {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  text-align: left;
+  background-color: #1a53c5;
+  color: white;
 }

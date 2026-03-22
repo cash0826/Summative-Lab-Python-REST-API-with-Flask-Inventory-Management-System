@@ -1,4 +1,5 @@
-
+// td = table data
+// th = table header
 
 export default function InventoryList({inventory, ...props}) {
 
@@ -7,6 +8,7 @@ export default function InventoryList({inventory, ...props}) {
       <tr key={item.id}>
         <td>{ item.id }</td>
         <td>{ item.name }</td>
+        <td>{ item.barcode } </td>
       </tr>
     )
   })
@@ -17,6 +19,7 @@ export default function InventoryList({inventory, ...props}) {
         <tr>
           <th>Id</th>
           <th>Name</th>
+          <th>Barcode</th>
         </tr>
       </thead>
 
@@ -26,7 +29,7 @@ export default function InventoryList({inventory, ...props}) {
 
       <tfoot>
         <tr>
-          <td colSpan={2}>{ inventory?.length || 0 } </td>
+          <td colSpan={3}>{ inventory?.length || 0 } </td>
         </tr>
       </tfoot>
 
