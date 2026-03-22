@@ -7,15 +7,21 @@ Course 8 Summative Lab: Python REST API with Flask - Inventory Management System
 
 Basic Installation:
 
-Make sure Python and npm are installed
+Make sure Python and npm are installed:
+
+
 ```python -V```
 ```pipenv install```
 ```npm install```
 
 Start Backend Server:
+
+
 ```pipenv run python server/app.py```
 
 Start Frontend UI:
+
+
 ```cd client```
 ```npm run dev```
 
