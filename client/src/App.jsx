@@ -3,14 +3,12 @@ import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "./context/ThemeContext.jsx";
 import { getInventory } from "./services/InventoryService";
 import InventoryList from "./components/InventoryList.jsx";
-import InventoryForm from "./components/InventoryForm.jsx";
 
 function App() {
   const { theme, setTheme } = useContext(ThemeContext);
   const [inventory, setInventory] = useState([])
   const [allItems, setAllItems] = useState([])
   const [query, setQuery] = useState("");
-  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     getInventory().then((data) =>{
@@ -47,26 +45,14 @@ function App() {
     </div>
   )
 
-  function handleClick() {
-    setShowForm((previous) => !previous);
-  }
-
   return(
     <div className={`app-container ${theme === "dark" ? "dark" : "" }`}>
       <nav className="navbar"> {searchBar} </nav>
       <main>
         <h2>Complete Inventory:</h2>
-        <InventoryList inventory={inventory} setInventory={setInventory} />
+        <InventoryList inventory={inventory} />
+        <button> Add Product Details </button>
       </main>
-
-      <div></div>
-
-      {showForm ? <InventoryForm inventory={inventory} setInventory={setInventory} /> : null}
-
-      <div></div>
-      
-      <button onClick={handleClick}>{showForm ? "Close Form" : "Add New Product"}</button>
-
       <div></div>
 
       <button onClick={() => {setTheme(theme === "light" ? "dark" : "light")}}>Toggle Theme</button>

@@ -10,6 +10,7 @@ export default function InventoryList({inventory, setInventory, ...props}) {
     return(
       <tr key={item.id}>
         <td>{ item.barcode }</td>
+        <td>{ item.barcode }</td>
         <td>{ item.name }</td>
         <td>{ item.quantity } </td>
         <td>{ item.price }</td>
