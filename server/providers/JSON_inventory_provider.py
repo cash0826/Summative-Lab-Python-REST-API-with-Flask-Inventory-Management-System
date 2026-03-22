@@ -8,9 +8,10 @@ import json
 from models.inventory_item import Inventory_Item
 
 class JSON_Inventory_Provider():
-  def __init__(self, filename):
+  def __init__(self, filename, detail_services=None):
     self.filename = filename
     self._inventory = []
+    self.detail_services = detail_services
     
   def load(self):
     if os.path.exists(self.filename):
@@ -35,7 +36,17 @@ class JSON_Inventory_Provider():
     if item.id is None:
       max_id = max([i.id for i in self._inventory]) if self._inventory else 0
       item.id = max_id + 1
+
+    details = item.product_details if isinstance(item.product_details, dict) else {}
       
+    # If product details are not provided, fetch them on external service using the barcode
+    if not details and item.barcode and self.detail_services:
+      details = self.detail_services.get_details_by_barcode(item.barcode) or {}
+      item.product_details = details
+      
+    if not item.name and details.get("product_name"):
+      item.name = details.get("product_name")
+    
     self._inventory.append(item)
     return item
   
@@ -50,6 +61,3 @@ class JSON_Inventory_Provider():
     initial_len = len(self._inventory)
     self._inventory = [i for i in self._inventory if i.id != id]
     return len(self._inventory) < initial_len
-  
-  def lookup(self, barcode):
-    pass
