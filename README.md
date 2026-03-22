@@ -10,8 +10,10 @@ Basic Installation:
 Make sure Python and npm are installed:
 
 
-```python -V```
+```python -V``` 
+
 ```pipenv install```
+
 ```npm install```
 
 Start Backend Server:
@@ -23,6 +25,7 @@ Start Frontend UI:
 
 
 ```cd client```
+
 ```npm run dev```
 
 # 2. API endpoints
