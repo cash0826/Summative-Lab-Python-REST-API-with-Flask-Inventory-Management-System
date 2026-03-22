@@ -1,14 +1,24 @@
 // td = table data
 // th = table header
 
-export default function InventoryList({inventory, ...props}) {
+import { deleteItem } from "../services/InventoryService.js";
+
+export default function InventoryList({inventory, setInventory, ...props}) {
+
+  async function handleDelete(itemId) {
+    await deleteItem(itemId);
+    setInventory((previous) => previous.filter(item => item.id !== itemId))
+  }
 
   let rows = inventory?.map((item, index) =>{
     return(
       <tr key={item.id}>
-        <td>{ item.id }</td>
+        <td>{ item.barcode }</td>
         <td>{ item.name }</td>
-        <td>{ item.barcode } </td>
+        <td>{ item.price }</td>
+        <td>{ item.quantity } </td>
+        <td>{ item.category }</td>
+        <td><button onClick={() => handleDelete(item.id)}>Delete</button> </td>
       </tr>
     )
   })
@@ -17,9 +27,12 @@ export default function InventoryList({inventory, ...props}) {
     <table>
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
           <th>Barcode</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Category</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -29,7 +42,7 @@ export default function InventoryList({inventory, ...props}) {
 
       <tfoot>
         <tr>
-          <td colSpan={3}>{ inventory?.length || 0 } </td>
+          <td colSpan={6}>Total Items: { inventory?.length || 0 } </td>
         </tr>
       </tfoot>
 
